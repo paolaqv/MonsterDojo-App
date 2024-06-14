@@ -38,6 +38,9 @@ dependencies:
   animated_text_kit: ^4.2.1
   rive: ^0.11.17
   shared_preferences: ^2.0.11  # Agregar esta línea
+  charts_flutter:
+    path: C:\Users\ASUS\Documents\GitHub\charts\charts_flutter
+  path_provider: ^2.0.2
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -3,6 +3,7 @@ import 'database_helper.dart';
 import 'dart:math';
 import 'gradient_button.dart';
 import 'rating.dart';
+import 'dashboard.dart'; // Importa la pantalla del dashboard
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class RegisterScreen extends StatefulWidget {
@@ -36,27 +37,37 @@ class _RegisterScreenState extends State<RegisterScreen>
   Future<void> _registerUser() async {
     try {
       if (_formKey.currentState!.validate()) {
-        await DatabaseHelper().insertUser(_emailController.text);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Usuario registrado correctamente')),
-        );
-        int? userId =
-            await DatabaseHelper().getUserIdByEmail(_emailController.text);
-        if (userId != null) {
+        String email = _emailController.text;
+
+        if (email == 'monsterdojo@gmail.com') {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => RatingScreen(userId: userId),
+              builder: (context) => DashboardScreen(),
             ),
           );
-          _emailController.clear();
-          setState(() {
-            _errorMessage = null;
-          });
         } else {
-          setState(() {
-            _errorMessage = 'Error al obtener el ID del usuario';
-          });
+          await DatabaseHelper().insertUser(email);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Usuario registrado correctamente')),
+          );
+          int? userId = await DatabaseHelper().getUserIdByEmail(email);
+          if (userId != null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => RatingScreen(userId: userId),
+              ),
+            );
+            _emailController.clear();
+            setState(() {
+              _errorMessage = null;
+            });
+          } else {
+            setState(() {
+              _errorMessage = 'Error al obtener el ID del usuario';
+            });
+          }
         }
       } else {
         setState(() {
