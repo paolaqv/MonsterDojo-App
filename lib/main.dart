@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io'; // Importar dart:io para acceder a Platform
 import 'package:sqflite_common_ffi/sqflite_ffi.dart'; // Importar sqflite_common_ffi
-import 'register.dart';
+import 'inicio.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: RegisterScreen(),
+      home: Inicio(),
     );
   }
 }
